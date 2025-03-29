@@ -437,6 +437,8 @@
 ///   
 ///   The name and address fields must be strings (or none).
 /// 
+/// - disable-document-properties (boolean): If enabled, the document properties will not be set. Use for generating multiple letters from a single document.
+/// 
 /// - recipient (content, none): The recipient that will be displayed below the annotations.
 /// 
 /// - stamp (boolean): This will increase the annotations box size is by two lines in order to provide more room for the postage stamp that will be displayed below the sender.
@@ -501,7 +503,9 @@
     address: none,
     extra: none,
   ),
-  
+
+  disable-document-properties: false,
+
   recipient: none,
 
   stamp: false,
@@ -534,13 +538,13 @@
   )
   
   // Configure page and text properties.
-  if sender.name != none {
+  if sender.name != none and not disable-document-properties {
     set document(
       title: subject,
       author: sender.name
     )
   }
-  else {
+  else if not disable-document-properties {
     set document(
       title: subject,
     )
